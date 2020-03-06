@@ -36,11 +36,11 @@ public class Board {
                 if (getSquare(rank, file).isHighlighted()) {
                     getSquare(rank, file).toggleHighlight();
                 }
-                if (getSquare(rank, file).getColor() == Color.RED || getSquare(rank, file).getColor() == Color.GREEN)
+                if (getSquare(rank, file).getColor() == Color.RED || getSquare(rank, file).getColor() == Color.GREEN || getSquare(rank, file).getColor() == Color.ORANGE || getSquare(rank, file).getColor() == Color.GRAY)
                 {
                     getSquare(rank, file).setWhite();
                 }
-                if (getSquare(rank, file).getColor() == Color.PINK || getSquare(rank, file).getColor() == Color.YELLOW)
+                if (getSquare(rank, file).getColor() == Color.PINK || getSquare(rank, file).getColor() == Color.YELLOW || getSquare(rank, file).getColor() == Color.BLUE || getSquare(rank, file).getColor() == Color.MAGENTA)
                 {
                     getSquare(rank, file).setBlack();
                 }
@@ -90,6 +90,14 @@ public class Board {
                     {
                         System.out.print("♘ ");
                     }
+                    else if (getSquare(rank, file).getColor() == Color.ORANGE || getSquare(rank, file).getColor() == Color.BLUE)
+                    {
+                        System.out.print("♗ ");
+                    }
+                    else if (getSquare(rank, file).getColor() == Color.GRAY || getSquare(rank, file).getColor() == Color.MAGENTA)
+                    {
+                        System.out.print("♕ ");
+                    }
                 }
                 else
                 {
@@ -113,6 +121,14 @@ public class Board {
                     else if (getSquare(rank, file).getColor() == Color.GREEN || getSquare(rank, file).getColor() == Color.YELLOW)
                     {
                         System.out.println("♘ ");
+                    }
+                    else if (getSquare(rank, file).getColor() == Color.ORANGE || getSquare(rank, file).getColor() == Color.BLUE)
+                    {
+                        System.out.println("♗ ");
+                    }
+                    else if (getSquare(rank, file).getColor() == Color.GRAY || getSquare(rank, file).getColor() == Color.MAGENTA)
+                    {
+                        System.out.println("♕ ");
                     }
                 }
             }

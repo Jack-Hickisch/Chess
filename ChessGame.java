@@ -10,7 +10,6 @@ public class ChessGame {
     }
 
     public void placeRook(int rank, int file) {
-        board.clearBoard();
 
         // for (int r = 1; r <= 8; r++) {
         //     for (int f = 1; f <= 8; f++) {
@@ -34,7 +33,6 @@ public class ChessGame {
 
     public void placeKnight(int rank, int file)
     {
-        board.clearBoard();
 
         for (int r = 1; r <= 8; r++) {
             for (int f = 1; f <= 8; f++) {
@@ -48,6 +46,79 @@ public class ChessGame {
         board.getSquare(rank, file).setKnight();
     }
 
+    public void placeBishop(int rank, int file)
+    {
+
+        for (int r = 1; r <= 8; r++) {
+            for (int f = 1; f <= 8; f++) {
+                if (Math.abs(rank - r) == Math.abs(file - f) && !(file == f && rank == r))
+                {
+                    board.getSquare(r, f).toggleHighlight();
+                }
+            }
+        }
+        // ♗
+        board.getSquare(rank, file).setBishop();
+    }
+
+    public void placeQueen(int rank, int file)
+    {
+        placeBishop(rank, file);
+        placeRook(rank, file);
+        // ♕
+        board.getSquare(rank, file).setQueen();
+    }
+
+    public void findQueenInfluence()
+    {
+        int[] ranks = new int[64];
+        int[] files = new int[64];
+        int maxInfluence = 0;
+        int numWithInfluence = 0;
+
+        for (int rank = 1; rank <= 8; rank++)
+        {
+            for (int file = 1; file <= 8; file++)
+            {
+                placeQueen(rank, file);
+                if (makeBoard() > maxInfluence)
+                {
+                    maxInfluence = makeBoard();
+                    numWithInfluence = 0;
+                    for (int num : ranks)
+                    {
+                        num = 0;
+                    }
+                    for (int num : files)
+                    {
+                        num = 0;
+                    }
+                    ranks[0] = rank;
+                    files[0] = file;
+                    board.clearBoard();
+                }
+                else if (makeBoard() == maxInfluence)
+                {
+                    numWithInfluence++;
+                    ranks[numWithInfluence] = rank;
+                    files[numWithInfluence] = file;
+                    board.clearBoard();
+                }
+                board.clearBoard();
+            }
+        }
+
+        board.clearBoard();
+
+        for (int i = 0; i < 64; i++)
+        {
+            if (ranks[i] != 0)
+            {
+                board.getSquare(ranks[i], files[i]).setQueen();
+            }
+        }
+    }
+
     public int makeBoard()
     {
         return board.makeBoard();
@@ -57,6 +128,11 @@ public class ChessGame {
     {
         board.clearBoard();
     }
+
+    // public Board getBoard()
+    // {
+    //     return board;
+    // }
 
     public static void main(String[] args)
     {
@@ -69,6 +145,21 @@ public class ChessGame {
         System.out.println("");
         game.clearBoard();
         game.placeKnight(8, 8);
+        System.out.println(game.makeBoard());
+
+        System.out.println("");
+        game.clearBoard();
+        game.placeBishop(2, 6);
+        System.out.println(game.makeBoard());
+
+        System.out.println("");
+        game.clearBoard();
+        game.placeQueen(4, 7);
+        System.out.println(game.makeBoard());
+        
+        System.out.println("");
+        game.clearBoard();
+        game.findQueenInfluence();
         System.out.println(game.makeBoard());
 
         System.out.println("");

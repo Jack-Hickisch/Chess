@@ -25,6 +25,8 @@ public class Square {
     public Color getColor() { return this.color; }
     public void setRook() { this.color = (color == Color.BLACK) ? Color.RED : Color.PINK; }
     public void setKnight() { this.color = (color == Color.BLACK) ? Color.GREEN : Color.YELLOW; }
+    public void setBishop() { this.color = (color == Color.BLACK) ? Color.ORANGE : Color.BLUE; }
+    public void setQueen() { this.color = (color == Color.BLACK) ? Color.GRAY : Color.MAGENTA; }
     public void setWhite() { this.color = Color.BLACK; }
     public void setBlack() { this.color = Color.WHITE; }
 
