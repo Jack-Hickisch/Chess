@@ -10,13 +10,35 @@ public class Board {
     public Board() {
         squares = new Square[8][8];
 
-        for (int row = 0; row < squares.length; row++) {
+        for (int row = 0; row < squares[0].length; row++) {
             boolean isBlack = false;
             if (row % 2 == 0) {
                 isBlack = true;
             }
             for (int col = 0; col < squares[row].length; col++) {
-                int rank = squares.length - row;
+                int rank = squares[0].length - row;
+                int file = col + 1;
+                Color color = Color.WHITE;
+                if (isBlack) {
+                    color = Color.BLACK;
+                }
+
+                squares[row][col] = new Square(rank, file, color);
+                isBlack = !isBlack;
+            }
+        }
+    }
+
+    public Board(int height, int length) {
+        squares = new Square[height][length];
+
+        for (int row = 0; row < squares[0].length; row++) {
+            boolean isBlack = false;
+            if (row % 2 == 0) {
+                isBlack = true;
+            }
+            for (int col = 0; col < squares[row].length; col++) {
+                int rank = squares[0].length - row;
                 int file = col + 1;
                 Color color = Color.WHITE;
                 if (isBlack) {
@@ -31,8 +53,8 @@ public class Board {
 
     public void clearBoard()
     {
-        for (int rank = 1; rank <= 8; rank++) {
-            for (int file = 1; file <= 8; file++) {
+        for (int rank = 1; rank <= squares.length; rank++) {
+            for (int file = 1; file <= squares[0].length; file++) {
                 if (getSquare(rank, file).isHighlighted()) {
                     getSquare(rank, file).toggleHighlight();
                 }
@@ -48,9 +70,20 @@ public class Board {
         }
     }
 
+    public void clearBoardKeepQueen()
+    {
+        for (int rank = 1; rank <= squares.length; rank++) {
+            for (int file = 1; file <= squares[0].length; file++) {
+                if (getSquare(rank, file).isHighlighted()) {
+                    getSquare(rank, file).toggleHighlight();
+                }
+            }
+        }
+    }
+
     public Square getSquare(int rank, int file)
     {
-        int realRank = 8 - rank;
+        int realRank = squares.length - rank;
         int realFile = file - 1;
         
         return squares[realRank][realFile];
@@ -59,15 +92,15 @@ public class Board {
     public int makeBoard()
     {
         int influence = 0;
-        for (int rank = 8; rank > 0; rank--)
+        for (int rank = squares.length; rank > 0; rank--)
         {
-            for (int file = 1; file <= 8; file++)
+            for (int file = 1; file <= squares[0].length; file++)
             {
                 // ■ = black
                 // □ = white
                 // ▩ = highlighted square
                 
-                if (file != 8)
+                if (file != squares[0].length)
                 {
                     if (getSquare(rank, file).isHighlighted())
                     {
