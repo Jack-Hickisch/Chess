@@ -168,4 +168,20 @@ public class Board {
         }
         return influence;
     }
+
+    public int findInfluence()
+    {
+        int influence = 0;
+        for (int rank = squares.length; rank > 0; rank--)
+        {
+            for (int file = 1; file <= squares[0].length; file++)
+            {
+                if (getSquare(rank, file).isHighlighted())
+                {
+                    influence++;
+                }
+            }
+        }
+        return influence;
+    }
 }

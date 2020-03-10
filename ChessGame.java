@@ -73,12 +73,36 @@ public class ChessGame {
 
     public void findQueenInfluence()
     {
-        placeQueen(3, 3);
+        int max = 0;
+
+        for (int r = 1; r <= height; r++) {
+            for (int f = 1; f <= length; f++) {
+                placeQueen(r, f);
+                max = (findInfluence() > max) ? findInfluence() : max;
+                clearBoard();
+            }
+        }
+
+        for (int r = 1; r <= height; r++) {
+            for (int f = 1; f <= length; f++) {
+                placeQueen(r, f);
+                if (max == findInfluence())
+                {
+                    System.out.println("@ rank = " + r + " file = " + f);
+                }
+                clearBoard();
+            }
+        }
     }
 
     public int makeBoard()
     {
         return board.makeBoard();
+    }
+
+    public int findInfluence()
+    {
+        return board.findInfluence();
     }
 
     public void clearBoard()
@@ -109,15 +133,13 @@ public class ChessGame {
         game.placeQueen(4, 7);
         System.out.println(game.makeBoard());
         
-        // System.out.println("");
-        // game.clearBoard();
-        // game.findQueenInfluence();
-        // System.out.println(game.makeBoard());
+        System.out.println("");
+        game.clearBoard();
+        game.findQueenInfluence();
 
         System.out.println("");
         game.clearBoard();
         System.out.println(game.makeBoard());
-
 
         ChessGame game2 = new ChessGame(5, 11);
         System.out.println("");
@@ -140,6 +162,9 @@ public class ChessGame {
         game2.placeQueen(5, 11);
         System.out.println(game2.makeBoard());
         
+        System.out.println("");
+        game2.clearBoard();
+        game2.findQueenInfluence();
     }
 }
 
