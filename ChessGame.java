@@ -4,6 +4,8 @@ import java.awt.Color;
 public class ChessGame {
 
     private Board board;
+    private int height;
+    private int length;
 
     public ChessGame() {
         this.board = new Board();
@@ -11,23 +13,17 @@ public class ChessGame {
 
     public ChessGame(int height, int length) {
         this.board = new Board(height, length);
+        this.height = height;
+        this.length = length;
     }
 
     public void placeRook(int rank, int file) {
 
-        // for (int r = 1; r <= 8; r++) {
-        //     for (int f = 1; f <= 8; f++) {
-        //         if ((r == rank || f == file) && !(r == rank && f == file)) {
-        //             board.getSquare(r, f).toggleHighlight();
-        //         }
-        //     }
-        // }
-
-        for (int r = 1; r <= 8; r++)
+        for (int r = 1; r <= height; r++)
         {
             board.getSquare(r, file).toggleHighlight();
         }
-        for (int f = 1; f <= 8; f++)
+        for (int f = 1; f <= length; f++)
         {
             board.getSquare(rank, f).toggleHighlight();
         }
@@ -38,8 +34,8 @@ public class ChessGame {
     public void placeKnight(int rank, int file)
     {
 
-        for (int r = 1; r <= 8; r++) {
-            for (int f = 1; f <= 8; f++) {
+        for (int r = 1; r <= height; r++) {
+            for (int f = 1; f <= length; f++) {
                 if ((Math.abs(rank - r) == 1 && Math.abs(file - f) == 2) || 
                     (Math.abs(rank - r) == 2 && Math.abs(file - f) == 1)) {
                     board.getSquare(r, f).toggleHighlight();
@@ -53,8 +49,8 @@ public class ChessGame {
     public void placeBishop(int rank, int file)
     {
 
-        for (int r = 1; r <= 8; r++) {
-            for (int f = 1; f <= 8; f++) {
+        for (int r = 1; r <= height; r++) {
+            for (int f = 1; f <= length; f++) {
                 if (Math.abs(rank - r) == Math.abs(file - f) && !(file == f && rank == r))
                 {
                     board.getSquare(r, f).toggleHighlight();
@@ -196,8 +192,27 @@ public class ChessGame {
         System.out.println(game.makeBoard());
 
 
-        ChessGame game2 = new ChessGame(6, 6);
-        game2.makeBoard();
+        ChessGame game2 = new ChessGame(5, 11);
+        System.out.println("");
+        game2.clearBoard();
+        game2.placeRook(3, 6);
+        System.out.println(game2.makeBoard());
+
+        System.out.println("");
+        game2.clearBoard();
+        game2.placeKnight(2, 7);
+        System.out.println(game2.makeBoard());
+
+        System.out.println("");
+        game2.clearBoard();
+        game2.placeBishop(3, 3);
+        System.out.println(game2.makeBoard());
+
+        System.out.println("");
+        game2.clearBoard();
+        game2.placeQueen(5, 11);
+        System.out.println(game2.makeBoard());
+        
     }
 }
 

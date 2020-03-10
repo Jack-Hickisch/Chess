@@ -32,7 +32,7 @@ public class Board {
     public Board(int height, int length) {
         squares = new Square[height][length];
 
-        for (int row = 0; row < squares[0].length; row++) {
+        for (int row = 0; row < squares.length; row++) {
             boolean isBlack = false;
             if (row % 2 == 0) {
                 isBlack = true;
